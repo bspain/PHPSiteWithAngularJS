@@ -19,6 +19,7 @@
     <IncludeDebugInformation>false</IncludeDebugInformation>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="json.php" />
     <Compile Include="phpinfo.php" />
   </ItemGroup>
   <ItemGroup>
