@@ -6,6 +6,8 @@ $countries =
     [ "name" => "Canada"]
 ];
 
-echo json_encode($countries);
+$json = json_encode($countries);
+
+var_dump(json_decode($json));
 
 ?>
