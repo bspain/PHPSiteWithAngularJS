@@ -4,5 +4,9 @@
 
     app.controller('CountryController', function () {
 
+        this.countries = {
+            name: 'United States'
+        }
+
     });
 })();
