@@ -15,6 +15,7 @@
     <div ng-controller="CountryController as countryCtrl">
         <ul>
             <li ng-repeat="country in countryCtrl.countries">
+                <img ng-src="images/{{ country.code }}.png" />
                 {{ country.name }}
                 <ul ng-show="country.states.length > 0">
                     <li ng-repeat="state in country.states">

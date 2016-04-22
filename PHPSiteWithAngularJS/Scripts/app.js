@@ -6,7 +6,7 @@
 
         this.countries = [{
             name: 'United States',
-            code: 'en',
+            code: 'us',
             states: [{ name: 'Minnesota'}, {name: 'Iowa'}]
         },
         {
