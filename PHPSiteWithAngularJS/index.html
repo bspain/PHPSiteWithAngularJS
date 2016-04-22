@@ -2,13 +2,27 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <title>PHP Site with Angular JS</title>
+    <style>
+        ul {
+            border: 1px solid red;
+        }
+    </style>
     <script type="text/javascript" src="/scripts/angular.js"></script>
     <script type="text/javascript" src="/scripts/app.js"></script>
 </head>
 <body ng-app="funwithcountries">
     <h1>Fun with Countries</h1>
     <div ng-controller="CountryController as countryCtrl">
-        {{ countryCtrl.countries.name }}
+        <ul>
+            <li ng-repeat="country in countryCtrl.countries">
+                {{ country.name }}
+                <ul ng-show="country.states.length > 0">
+                    <li ng-repeat="state in country.states">
+                        {{ state.name }}
+                    </li>
+                </ul>
+            </li>
+        </ul>
     </div>
 </body>
 </html>
