@@ -1,10 +1,21 @@
 ﻿<div>
-    <ul ng-show="country.states.length > 0">
-        <li ng-repeat="state in country.states">
+    <!--
+        This templates controller name 'stateCtrl' is defined in the routing object that was setup for it.
+    -->
+    <b>{{stateCtrl.params.countryCode}}</b>
+    <ul ng-show="stateCtrl.states.length > 0">
+        <li ng-repeat="state in stateCtrl.states">
             {{ state.name }}
         </li>
     </ul>
 
     <input type="text" name="state" ng-model="stateCtrl.newState" />
-    <a href ng-click="stateCtrl.addStateTo(country)">Add state {{ stateCtrl.newState }}</a>
+    <a href ng-click="stateCtrl.addStateTo()">Add state {{ stateCtrl.newState }}</a>
+    <p>
+        <!-- 
+            There is nothing in our app.js that provides a route for this, so the view that
+            gets substituted in index.html is empty.
+        -->
+        <a href="#/">back</a>
+    </p>
 </div>

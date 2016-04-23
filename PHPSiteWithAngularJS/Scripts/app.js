@@ -1,6 +1,6 @@
 ﻿(function () {
     
-    var app = angular.module('funwithcountries', []);
+    var app = angular.module('funwithcountries', ['ngRoute']);
 
     // Define service 'countryService' via AngularJS's Factory system.
     app.factory('countryService', function($http) {
@@ -12,6 +12,11 @@
             {
                 // getCountries ultimately returns a JS Promise (hard to tell without good intellisense)
                 return $http.get(baseUrl + '/getCountries.php');
+            },
+            getStates: function(countryCode) 
+            {
+                return $http.get(baseUrl + '/getStates.php?countryCode=' +
+                    encodeURIComponent(countryCode));               
             }
         };
     });
@@ -31,22 +36,32 @@
         });
     });
 
-    app.directive('stateView', function () {
-        return {
-            restrict: 'E',  // restricted to Elements
-            templateUrl: 'state-view.html', // A little 'voodoo' going on here w.r.t. resolving the filename from root.
-            controller: function () {
-                // Definition of the controller that all state-view elements will have in scope.
-                this.addStateTo = function (country) {
-                    if (!country.states) {
-                        country.states = [];
+    // Routing - when something wants to go to /states/, take everything after the / (that's what ":" means) and store it in $routeParams.countryCode
+    // then, return this new route object (which looks a lot like a directive that we replaced)
+    app.config(function ($routeProvider) {
+        $routeProvider.when('/states/:countryCode', {
+            templateUrl: 'state-view.html',
+            controller: function ($routeParams, countryService) { // Same dependency injection technique as in the CountryController definition.
+                this.params = $routeParams;
+
+                // As in the countryController - this is the stateController here.
+                var that = this;
+
+                countryService.getStates(this.params.countryCode || "").success(function(data)
+                {
+                    that.states = data;
+                })
+
+                this.addStateTo = function () {
+                    if (!this.states) {
+                        this.states = [];
                     }
 
-                    country.states.push({ name: this.newState });
+                    this.states.push({ name: this.newState });
                     this.newState = "";
                 };
             },
             controllerAs: 'stateCtrl'
-        };
+        });
     });
 })();

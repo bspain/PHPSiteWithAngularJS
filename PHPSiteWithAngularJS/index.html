@@ -3,27 +3,36 @@
 <head>
     <title>PHP Site with Angular JS</title>
     <style>
-        ul {
-            border: 1px solid red;
+        .col {
+            float: left;
+            width: 50%;
         }
     </style>
     <script type="text/javascript" src="/scripts/angular.js"></script>
+    <script type="text/javascript" src="/scripts/angular-route.js"></script>
     <script type="text/javascript" src="/scripts/app.js"></script>
 </head>
 <body ng-app="funwithcountries">
-    <h1>Fun with Countries</h1>
-    <div ng-controller="CountryController as countryCtrl">
+    <h1>Help build our Country Database</h1>
+    <div ng-controller="CountryController as countryCtrl" class="col">
         <ul>
             <li ng-repeat="country in countryCtrl.countries">
-                <img ng-src="images/{{ country.code }}.png" />
-                {{ country.name }}
-                <!-- 
-                    state-view is a custom directive defined in app.js as 'stateView' 
-                    naming convention is a feature of AngularJS (<state-view> <==> 'stateView')
+                <!--
+                    When the user clicks the flag, use routing to get the data and template
+                    to show in the ng-view element. 
                 -->
-                <state-view></state-view>
+                <a href ng-href="#/states/{{ country.code }}">
+                    <img ng-src="images/{{ country.code }}.png" />
+                    {{ country.name }}
+                </a>
             </li>
         </ul>
     </div>
+
+    <!-- 
+        Any templates the route provider loads will be displayed here.
+        (Feels like there needs to be something that identifies this clearer.)
+    -->
+    <div class="col" ng-view></div>
 </body>
 </html>
