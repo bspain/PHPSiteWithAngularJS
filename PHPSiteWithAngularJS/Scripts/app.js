@@ -6,12 +6,16 @@
     app.factory('countryService', function($http) {
         var baseUrl = 'services/';
 
-        // countryService is defined as providing 1 method: getCountries
         return {
             getCountries: function()
             {
                 // getCountries ultimately returns a JS Promise (hard to tell without good intellisense)
                 return $http.get(baseUrl + '/getCountries.php');
+            },
+            getCountry: function(countryCode)
+            {
+                return $http.get(baseUrl + '/getCountry.php?countryCode=' +
+                    encodeURIComponent(countryCode));
             },
             getStates: function(countryCode) 
             {
@@ -47,9 +51,28 @@
                 // As in the countryController - this is the stateController here.
                 var that = this;
 
-                countryService.getStates(this.params.countryCode || "").success(function(data)
+                countryService.getStates(this.params.countryCode || "").success(function(statesData)
                 {
-                    that.states = data;
+                    that.states = statesData;
+                })
+
+                countryService.getCountry(this.params.countryCode || "").success(function (countryData) {
+                    // TODO: use google maps with AngularJS reference
+                    var mapDiv = document.getElementById('map');
+                    var map = new google.maps.Map(mapDiv, {
+                        center: {
+                            lat: Number(countryData.lat),
+                            lng: Number(countryData.long)
+                        },
+                        zoom: Number(countryData.zoom)
+                    });
+                    //var map = new google.maps.Map(mapDiv, {
+                    //    center: {
+                    //        lat: -34.397,
+                    //        lng: 150.644
+                    //    },
+                    //    zoom: 8
+                    //});
                 })
 
                 this.addStateTo = function () {

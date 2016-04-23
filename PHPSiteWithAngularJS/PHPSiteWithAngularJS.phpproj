@@ -25,6 +25,7 @@
     <Compile Include="phpinfo.php" />
     <Compile Include="repositories\CountryRepository.php" />
     <Compile Include="services\getCountries.php" />
+    <Compile Include="services\getCountry.php" />
     <Compile Include="services\getStates.php" />
     <Compile Include="unittests\CountryRepositoryTest.php" />
   </ItemGroup>
