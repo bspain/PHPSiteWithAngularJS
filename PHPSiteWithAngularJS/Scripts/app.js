@@ -29,18 +29,20 @@
             // As soon as data is set on the controller, the data-bound HTML updates accordingly.
             that.countries = data;
         });
+    });
+
+    app.controller('StateController', function () {
 
         this.newState = "";
 
-        this.addStateTo = function(country)
-        {
-            if (!country.states)
-            {
+        this.addStateTo = function (country) {
+            if (!country.states) {
                 country.states = [];
             }
 
             country.states.push({ name: this.newState });
             this.newState = "";
-        }
+        };
     });
+
 })();
