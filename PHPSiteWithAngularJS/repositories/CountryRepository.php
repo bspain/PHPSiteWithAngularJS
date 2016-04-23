@@ -24,7 +24,7 @@ class CountryRepository
         array_push($countries,
             new Country('Austria', 'at', array(
                 new State('Styria'), 
-                new State('Vienna')
+                new State('Tyrol')
         )));
 
         array_push($countries,
