@@ -2,29 +2,31 @@
     
     var app = angular.module('funwithcountries', []);
 
-    app.controller('CountryController', function ($http) {
+    // Define service 'countryService' via AngularJS's Factory system.
+    app.factory('countryService', function($http) {
+        var baseUrl = 'services/';
 
-        //this.countries = [{
-        //    name: 'United States',
-        //    code: 'us',
-        //    states: [{ name: 'Minnesota'}, {name: 'Iowa'}]
-        //},
-        //{
-        //    name: 'Germany',
-        //    code: 'de',
-        //    states: [{ name: 'Bavaria' }, { name: 'Berlin' }]
-        //},
-        //{
-        //    name: 'Luxemberg',
-        //    code: 'lu'
-        //}]
+        // countryService is defined as providing 1 method: getCountries
+        return {
+            getCountries: function()
+            {
+                // getCountries ultimately returns a JS Promise (hard to tell without good intellisense)
+                return $http.get(baseUrl + '/getCountries.php');
+            }
+        };
+    });
 
+    // Controller takes countryService as a dependency.  AngularJS 
+    // inheritly figures out which service to inject.
+    app.controller('CountryController', function (countryService) {
+
+        // Store the instance of the controller so that the Promise result delegate
+        // can access it (otherwise, 'this' @ line 30 is the browser window, not the controller
         var that = this;
 
-        $http({
-            method: 'GET',
-            url: 'services/getCountries.php'
-        }).success(function (data) {
+        countryService.getCountries().success(function (data) {
+
+            // As soon as data is set on the controller, the data-bound HTML updates accordingly.
             that.countries = data;
         });
 
