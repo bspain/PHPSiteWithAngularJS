@@ -31,18 +31,22 @@
         });
     });
 
-    app.controller('StateController', function () {
+    app.directive('stateView', function () {
+        return {
+            restrict: 'E',  // restricted to Elements
+            templateUrl: 'state-view.html', // A little 'voodoo' going on here w.r.t. resolving the filename from root.
+            controller: function () {
+                // Definition of the controller that all state-view elements will have in scope.
+                this.addStateTo = function (country) {
+                    if (!country.states) {
+                        country.states = [];
+                    }
 
-        this.newState = "";
-
-        this.addStateTo = function (country) {
-            if (!country.states) {
-                country.states = [];
-            }
-
-            country.states.push({ name: this.newState });
-            this.newState = "";
+                    country.states.push({ name: this.newState });
+                    this.newState = "";
+                };
+            },
+            controllerAs: 'stateCtrl'
         };
     });
-
 })();
