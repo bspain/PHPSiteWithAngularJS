@@ -1,6 +1,6 @@
 <?php
 
-require(dirname(__DIR__).'../repositories/CountryRepository.php');
+require(dirname(__DIR__).'/repositories/CountryRepository.php');
 
 header('Content-type: application/json');
 

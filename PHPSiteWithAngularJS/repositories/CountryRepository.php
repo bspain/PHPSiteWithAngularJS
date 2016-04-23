@@ -2,8 +2,8 @@
 
 // This syntax appears to work in both local unit testing
 // and IIS Express execution.
-require(dirname(__DIR__).'../models/Country.php');
-require(dirname(__DIR__).'../models/State.php');
+require(dirname(__DIR__).'/models/Country.php');
+require(dirname(__DIR__).'/models/State.php');
 
 /**
  * CountryRepository short summary.
