@@ -20,10 +20,19 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="json.php" />
+    <Compile Include="models\Country.php" />
+    <Compile Include="models\State.php" />
     <Compile Include="phpinfo.php" />
+    <Compile Include="repositories\CountryRepository.php" />
+    <Compile Include="services\getCountries.php" />
+    <Compile Include="unittests\CountryRepositoryTest.php" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="images\" />
+    <Folder Include="models\" />
+    <Folder Include="unittests\" />
+    <Folder Include="services\" />
+    <Folder Include="repositories\" />
     <Folder Include="Scripts\" />
     <Folder Include="Scripts\i18n\" />
   </ItemGroup>
