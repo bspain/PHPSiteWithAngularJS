@@ -1,0 +1,22 @@
+﻿<div>
+    <!--
+        This templates controller name 'placeCtrl' is defined in the routing object that was setup for it.
+    -->
+    <b>{{placeCtrl.params.countryCode}}</b>
+    <ul ng-show="placeCtrl.places.length > 0">
+        <li ng-repeat="place in placeCtrl.places">
+            {{ place.name }}
+        </li>
+    </ul>
+
+    <input type="text" name="state" ng-model="placeCtrl.newPlace" />
+    <a href ng-click="placeCtrl.addPlaceTo()">Add place {{ placeCtrl.newPlace }}</a>
+    <p>
+        <!-- 
+            There is nothing in our app.js that provides a route for this, so the view that
+            gets substituted in index.html is empty.
+        -->
+        <a href="#/">back</a>
+    </p>
+    <div id="map" style="width:500px; height:400px; background-color: #CCC;"></div>
+</div>

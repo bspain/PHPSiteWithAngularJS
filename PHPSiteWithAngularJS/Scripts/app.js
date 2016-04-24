@@ -10,16 +10,16 @@
             getCountries: function()
             {
                 // getCountries ultimately returns a JS Promise (hard to tell without good intellisense)
-                return $http.get(baseUrl + '/getCountries.php');
+                return $http.get(baseUrl + '/getcountries.php');
             },
             getCountry: function(countryCode)
             {
-                return $http.get(baseUrl + '/getCountry.php?countryCode=' +
+                return $http.get(baseUrl + '/getcountry.php?countryCode=' +
                     encodeURIComponent(countryCode));
             },
-            getStates: function(countryCode) 
+            getPlaces: function(countryCode) 
             {
-                return $http.get(baseUrl + '/getStates.php?countryCode=' +
+                return $http.get(baseUrl + '/getplaces.php?countryCode=' +
                     encodeURIComponent(countryCode));               
             }
         };
@@ -40,51 +40,51 @@
         });
     });
 
-    // Routing - when something wants to go to /states/, take everything after the / (that's what ":" means) and store it in $routeParams.countryCode
+    // Routing - when something wants to go to /places/, take everything after the / (that's what ":" means) and store it in $routeParams.countryCode
     // then, return this new route object (which looks a lot like a directive that we replaced)
     app.config(function ($routeProvider) {
-        $routeProvider.when('/states/:countryCode', {
-            templateUrl: 'state-view.html',
+        $routeProvider.when('/places/:countryCode', {
+            templateUrl: 'places-view.html',
             controller: function ($routeParams, countryService) { // Same dependency injection technique as in the CountryController definition.
                 this.params = $routeParams;
 
-                // As in the countryController - this is the stateController here.
+                // As in the countryController - this is the placesController here.
                 var that = this;
 
-                countryService.getStates(this.params.countryCode || "").success(function(statesData)
+                countryService.getPlaces(this.params.countryCode || "").success(function(placesData)
                 {
-                    that.states = statesData;
+                    that.places = placesData;
                 })
 
-                countryService.getCountry(this.params.countryCode || "").success(function (countryData) {
-                    // TODO: use google maps with AngularJS reference
-                    var mapDiv = document.getElementById('map');
-                    var map = new google.maps.Map(mapDiv, {
-                        center: {
-                            lat: Number(countryData.lat),
-                            lng: Number(countryData.long)
-                        },
-                        zoom: Number(countryData.zoom)
-                    });
-                    //var map = new google.maps.Map(mapDiv, {
-                    //    center: {
-                    //        lat: -34.397,
-                    //        lng: 150.644
-                    //    },
-                    //    zoom: 8
-                    //});
-                })
+                //countryService.getCountry(this.params.countryCode || "").success(function (countryData) {
+                //    // TODO: use google maps with AngularJS reference
+                //    var mapDiv = document.getElementById('map');
+                //    var map = new google.maps.Map(mapDiv, {
+                //        center: {
+                //            lat: Number(countryData.lat),
+                //            lng: Number(countryData.long)
+                //        },
+                //        zoom: Number(countryData.zoom)
+                //    });
+                //    //var map = new google.maps.Map(mapDiv, {
+                //    //    center: {
+                //    //        lat: -34.397,
+                //    //        lng: 150.644
+                //    //    },
+                //    //    zoom: 8
+                //    //});
+                //})
 
-                this.addStateTo = function () {
-                    if (!this.states) {
-                        this.states = [];
+                this.addPlaceTo = function () {
+                    if (!this.places) {
+                        this.places = [];
                     }
 
-                    this.states.push({ name: this.newState });
-                    this.newState = "";
+                    this.places.push({ name: this.newPlace });
+                    this.newPlace = "";
                 };
             },
-            controllerAs: 'stateCtrl'
+            controllerAs: 'placeCtrl'
         });
     });
 })();
