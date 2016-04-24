@@ -15,7 +15,7 @@ class CountryRepositoryTest extends PHPUnit_Framework_TestCase
     public function test_getCountries()
     {
         $countries = CountryRepository::getCountries();
-        $this->assertCount(3, $countries);
+        $this->assertCount(4, $countries);
     }
 
     public function test_getCountry()
@@ -24,10 +24,10 @@ class CountryRepositoryTest extends PHPUnit_Framework_TestCase
         $this->assertTrue($country->name === 'Canada');
     }
 
-    public function test_getStates()
+    public function test_getPlaces()
     {
-        $states = CountryRepository::getStates('ca');
-        $this->assertCount(2, $states);
+        $places = CountryRepository::getPlaces('ca');
+        $this->assertCount(2, $places);
     }
 }
 

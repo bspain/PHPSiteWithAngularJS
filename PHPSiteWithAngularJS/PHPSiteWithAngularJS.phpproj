@@ -21,12 +21,12 @@
   <ItemGroup>
     <Compile Include="json.php" />
     <Compile Include="models\Country.php" />
-    <Compile Include="models\State.php" />
+    <Compile Include="models\Place.php" />
     <Compile Include="phpinfo.php" />
     <Compile Include="repositories\CountryRepository.php" />
     <Compile Include="services\getCountries.php" />
     <Compile Include="services\getCountry.php" />
-    <Compile Include="services\getStates.php" />
+    <Compile Include="services\getPlaces.php" />
     <Compile Include="unittests\CountryRepositoryTest.php" />
   </ItemGroup>
   <ItemGroup>

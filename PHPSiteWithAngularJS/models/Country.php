@@ -12,18 +12,12 @@ class Country
 {
     public $name;
     public $code;
-    public $states;
-    public $lat;
-    public $long;
-    public $zoom;
+    public $places;
 
-    public function __construct($name = '', $code = '', $lat = '', $long = '', $zoom = '', $states = array())
+    public function __construct($name = '', $code = '', $places = array())
     {
         $this->name = $name;
         $this->code = $code;
-        $this->states = $states;
-        $this->lat = $lat;
-        $this->long = $long;
-        $this->zoom = $zoom;
+        $this->places = $places;
     }
 }

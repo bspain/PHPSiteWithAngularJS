@@ -3,7 +3,7 @@
 // This syntax appears to work in both local unit testing
 // and IIS Express execution.
 require(dirname(__DIR__).'/models/Country.php');
-require(dirname(__DIR__).'/models/State.php');
+require(dirname(__DIR__).'/models/Place.php');
 
 /**
  * CountryRepository short summary.
@@ -22,19 +22,24 @@ class CountryRepository
         // local array
         $countries = array();
         array_push($countries,
-            new Country('Austria', 'at', '47.5078021', '12.393941', '7', array(
-                new State('Styria'), 
-                new State('Tyrol')
+            new Country('United States', 'us', array(
+                new Place('Target Field', '1 Twins Way, Minneapolis, MN 55403', 44.981609, -93.277697, 16),
+                new Place('Afton Alps', '6624 Peller Ave S, Hastings, MN 55033', 44.853337, -92.79118, 16)
         )));
 
         array_push($countries,
-        new Country('Canada', 'ca', '54.7152869', '-113.7714624', '4', array(
-            new State('Ontario'),
-            new State('Quebec')
+            new Country('Canada', 'ca', array(
+                new Place('Whistler Mountain', '4545 Blackcomb Way, Whistler, BC V0N 1B4', 50.115071, -122.948743, 16),
+                new Place('West Edmonton Mall', '1384 170th St, Edmonton, AB, Canada', 53.419288, -113.615067, 16)
         )));
 
         array_push($countries,
-            new Country('Luxembourg', 'lu', '49.6077429','5.9957811','11')
+            new Country('Italy', 'it', array(
+                new Place('Colosseum', 'Piazza del Colosseo 00184', 41.890219, 12.49222, 16)
+        )));
+
+        array_push($countries,
+            new Country('Luxembourg', 'lu')
         );
 
         self::$countries = $countries;
@@ -73,7 +78,7 @@ class CountryRepository
         return $firstCountry;
     }
 
-    public static function getStates($countryCode)
+    public static function getPlaces($countryCode)
     {
         if (count(self::$countries) === 0)
         {
@@ -93,6 +98,6 @@ class CountryRepository
 
         // This strongly suggests $firstCountry[0] isn't an option.
         $firstCountry = array_shift($country);
-        return $firstCountry->states;
+        return $firstCountry->places;
     }
 }
