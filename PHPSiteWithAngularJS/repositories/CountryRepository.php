@@ -64,6 +64,7 @@ class CountryRepository
             self::init();
         }
 
+        // Think of this as Array.TakeAny(array, (a) => (...));
         $country = array_filter(self::$countries, function($c) use ($countryCode)
         {
             return $c->code === $countryCode;
@@ -74,30 +75,25 @@ class CountryRepository
             return array();
         }
 
+        // This strongly suggests $firstCountry[0] isn't an option.
         $firstCountry = array_shift($country);
         return $firstCountry;
     }
 
     public static function getPlaces($countryCode)
     {
+        $country = CountryRepository::getCountry($countryCode);
+        return $country->places;
+    }
+
+    public static function setPlaces($countryCode, $places)
+    {
         if (count(self::$countries) === 0)
         {
             self::init();
         }
 
-        // Think of this as Array.TakeAny(array, (a) => (...));
-        $country = array_filter(self::$countries, function($c) use ($countryCode)
-        {
-            return $c->code === $countryCode;   
-        });
-
-        if (count($country) === 0)
-        {
-            return array();
-        }
-
-        // This strongly suggests $firstCountry[0] isn't an option.
-        $firstCountry = array_shift($country);
-        return $firstCountry->places;
+        $country = CountryRepository::getCountry($countryCode);
+        $country->places = $places;
     }
 }

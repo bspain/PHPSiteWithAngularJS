@@ -29,6 +29,21 @@ class CountryRepositoryTest extends PHPUnit_Framework_TestCase
         $places = CountryRepository::getPlaces('ca');
         $this->assertCount(2, $places);
     }
+
+    public function test_setPlaces()
+    {
+        $places = array();
+        array_push($places,
+            new Place('place1'),
+            new Place('place2'),
+            new Place('place3'),
+            new Place('place4'));
+
+        CountryRepository::setPlaces('ca', $places);
+
+        $places2 = CountryRepository::getPlaces('ca');
+        $this->assertCount(4, $places2);
+    }
 }
 
 ?>
