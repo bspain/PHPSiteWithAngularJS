@@ -5,7 +5,7 @@
     <b>{{placeCtrl.params.countryCode}}</b>
     <ul ng-show="placeCtrl.places.length > 0">
         <li ng-repeat="place in placeCtrl.places">
-            {{ place.name }}
+            <a href ng-click="placeCtrl.mapPlace(place)">{{ place.name }}</a>
         </li>
     </ul>
 

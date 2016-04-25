@@ -83,6 +83,18 @@
                     this.places.push({ name: this.newPlace });
                     this.newPlace = "";
                 };
+
+                this.mapPlace = function (place)
+                {
+                    var mapDiv = document.getElementById('map');
+                    var map = new google.maps.Map(mapDiv, {
+                        center: {
+                            lat: place.lat,
+                            lng: place.long
+                        },
+                        zoom: place.zoom
+                    });
+                }
             },
             controllerAs: 'placeCtrl'
         });
