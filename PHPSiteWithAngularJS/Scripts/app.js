@@ -61,10 +61,35 @@
                 // As in the countryController - this is the placesController here.
                 var that = this;
 
-                countryService.getPlaces(this.params.countryCode || "").success(function(placesData)
-                {
+                countryService.getCountry(this.params.countryCode || "").success(function (countryData) {
+                    var map = that.updateAndReturnMap(countryData.lat, countryData.long, countryData.zoom);
+
+                    // Check for deferred loading
+                    // Can AngularJS be used to inject this?
+                    if (typeof(Microsoft) === "undefined") return;
+                    
+                    // Create the map search suggestion manager
+                    Microsoft.Maps.loadModule('Microsoft.Maps.AutoSuggest', function () {
+                        var manager = new Microsoft.Maps.AutosuggestManager({ map: map });
+                        manager.attachAutosuggest(
+                            document.getElementById('searchBox'),
+                            document.getElementById('searchBoxContainer'),
+                            function (result) {
+
+                                that.updateAndReturnMap(result.location.latitude, result.location.longitude, 12);
+                                that.newPlace = {
+                                    name: result.title,
+                                    lat: result.location.latitude,
+                                    long: result.location.longitude,
+                                    zoom: 12
+                                }
+                            })
+                    });
+                });
+
+                countryService.getPlaces(this.params.countryCode || "").success(function (placesData) {
                     that.places = placesData;
-                })
+                });
 
                 this.addPlaceTo = function () {
                     if (!this.places) {
@@ -83,6 +108,10 @@
 
                 this.updateAndReturnMap = function (lat, long, zoom) {
                     var mapDiv = document.getElementById('map');
+
+                    // Check for deferred loading
+                    if (typeof (Microsoft) === "undefined") return;
+
                     var map = new Microsoft.Maps.Map(mapDiv, {
                         credentials: 'AkaQaqdFaoCzpl6ccgfZT-BG2ikksp2S-8aigDC_4KJb5aydsQZY7OYeB7GADRzP',
                         center: new Microsoft.Maps.Location(lat, long),
@@ -92,29 +121,6 @@
 
                     return map;
                 }
-
-                // Create the map search suggestion manager
-                // TODO: Not safe to use Microsoft.Maps until defer'd JS is loaded.  Need to make this a no-op until that happens.
-                // Can AngularJS be used to inject this?
-                Microsoft.Maps.loadModule('Microsoft.Maps.AutoSuggest', function () {
-
-                    var map = that.updateAndReturnMap(47.606209, -122.332071, 12);
-
-                    var manager = new Microsoft.Maps.AutosuggestManager({ map: map });
-                    manager.attachAutosuggest(
-                        document.getElementById('searchBox'),
-                        document.getElementById('searchBoxContainer'),
-                        function (result) {
-
-                            that.updateAndReturnMap(result.location.latitude, result.location.longitude, 12);
-                            that.newPlace = {
-                                name: result.title,
-                                lat: result.location.latitude,
-                                long: result.location.longitude,
-                                zoom: 12
-                            }
-                        })
-                });
             },
             controllerAs: 'placeCtrl'
         });
