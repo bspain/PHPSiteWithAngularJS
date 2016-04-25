@@ -56,25 +56,6 @@
                     that.places = placesData;
                 })
 
-                //countryService.getCountry(this.params.countryCode || "").success(function (countryData) {
-                //    // TODO: use google maps with AngularJS reference
-                //    var mapDiv = document.getElementById('map');
-                //    var map = new google.maps.Map(mapDiv, {
-                //        center: {
-                //            lat: Number(countryData.lat),
-                //            lng: Number(countryData.long)
-                //        },
-                //        zoom: Number(countryData.zoom)
-                //    });
-                //    //var map = new google.maps.Map(mapDiv, {
-                //    //    center: {
-                //    //        lat: -34.397,
-                //    //        lng: 150.644
-                //    //    },
-                //    //    zoom: 8
-                //    //});
-                //})
-
                 this.addPlaceTo = function () {
                     if (!this.places) {
                         this.places = [];
@@ -87,11 +68,10 @@
                 this.mapPlace = function (place)
                 {
                     var mapDiv = document.getElementById('map');
-                    var map = new google.maps.Map(mapDiv, {
-                        center: {
-                            lat: place.lat,
-                            lng: place.long
-                        },
+                    var map = new Microsoft.Maps.Map(mapDiv, {
+                        credentials: 'AkaQaqdFaoCzpl6ccgfZT-BG2ikksp2S-8aigDC_4KJb5aydsQZY7OYeB7GADRzP',
+                        center: new Microsoft.Maps.Location(place.lat, place.long),
+                        mapTypeId: Microsoft.Maps.MapTypeId.aerial,
                         zoom: place.zoom
                     });
                 }

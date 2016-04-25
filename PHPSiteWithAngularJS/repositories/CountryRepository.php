@@ -29,7 +29,7 @@ class CountryRepository
 
         array_push($countries,
             new Country('Canada', 'ca', array(
-                new Place('Whistler Mountain', '4545 Blackcomb Way, Whistler, BC V0N 1B4', 50.115071, -122.948743, 16),
+                new Place('Whistler-Blackcomb Ski Resort', '4350 Skiers Plz, Squamish-Lillooet, BC V0N', 50.113279, -122.954247, 16),
                 new Place('West Edmonton Mall', '1384 170th St, Edmonton, AB, Canada', 53.419288, -113.615067, 16)
         )));
 
