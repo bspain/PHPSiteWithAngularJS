@@ -21,6 +21,16 @@
             {
                 return $http.get(baseUrl + '/getplaces.php?countryCode=' +
                     encodeURIComponent(countryCode));               
+            },
+            addPlace: function(countryCode, place)
+            {                
+                return $http.get(baseUrl +
+                    '/addplace.php?contryCode=' + encodeURIComponent(countryCode) +
+                    '&name=' + encodeURIComponent(place.name) +
+                    '&address=' + encodeURIComponent(place.address) +
+                    '&lat=' + encodeURIComponent(place.lat) +
+                    '&long=' + encodeURIComponent(place.long) +
+                    '&zoom=' + encodeURIComponent(place.zoom));
             }
         };
     });
@@ -62,6 +72,7 @@
                     }
 
                     this.places.push(this.newPlace);
+                    countryService.addPlace(this.params.countryCode, this.newPlace);
                     this.newPlace = null;
                 };
 

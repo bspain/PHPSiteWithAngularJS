@@ -86,7 +86,7 @@ class CountryRepository
         return $country->places;
     }
 
-    public static function setPlaces($countryCode, $places)
+    public static function addPlace($countryCode, $place)
     {
         if (count(self::$countries) === 0)
         {
@@ -94,6 +94,6 @@ class CountryRepository
         }
 
         $country = CountryRepository::getCountry($countryCode);
-        $country->places = $places;
+        array_push($country->places, $place);
     }
 }
