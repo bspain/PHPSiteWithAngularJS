@@ -10,22 +10,22 @@
             getCountries: function()
             {
                 // getCountries ultimately returns a JS Promise (hard to tell without good intellisense)
-                return $http.get(baseUrl + '/getcountries.php');
+                return $http.get(baseUrl + 'getCountries.php');
             },
             getCountry: function(countryCode)
             {
-                return $http.get(baseUrl + '/getcountry.php?countryCode=' +
+                return $http.get(baseUrl + 'getCountry.php?countryCode=' +
                     encodeURIComponent(countryCode));
             },
             getPlaces: function(countryCode) 
             {
-                return $http.get(baseUrl + '/getplaces.php?countryCode=' +
+                return $http.get(baseUrl + 'getPlaces.php?countryCode=' +
                     encodeURIComponent(countryCode));               
             },
             addPlace: function(countryCode, place)
             {                
                 return $http.get(baseUrl +
-                    '/addplace.php?contryCode=' + encodeURIComponent(countryCode) +
+                    'addPlace.php?contryCode=' + encodeURIComponent(countryCode) +
                     '&name=' + encodeURIComponent(place.name) +
                     '&address=' + encodeURIComponent(place.address) +
                     '&lat=' + encodeURIComponent(place.lat) +
