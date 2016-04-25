@@ -61,20 +61,49 @@
                         this.places = [];
                     }
 
-                    this.places.push({ name: this.newPlace });
-                    this.newPlace = "";
+                    this.places.push(this.newPlace);
+                    this.newPlace = null;
                 };
 
                 this.mapPlace = function (place)
                 {
+                    this.updateAndReturnMap(place.lat, place.long, place.zoom);
+                }
+
+                this.updateAndReturnMap = function (lat, long, zoom) {
                     var mapDiv = document.getElementById('map');
                     var map = new Microsoft.Maps.Map(mapDiv, {
                         credentials: 'AkaQaqdFaoCzpl6ccgfZT-BG2ikksp2S-8aigDC_4KJb5aydsQZY7OYeB7GADRzP',
-                        center: new Microsoft.Maps.Location(place.lat, place.long),
+                        center: new Microsoft.Maps.Location(lat, long),
                         mapTypeId: Microsoft.Maps.MapTypeId.aerial,
-                        zoom: place.zoom
+                        zoom: zoom
                     });
+
+                    return map;
                 }
+
+                // Create the map search suggestion manager
+                // TODO: Not safe to use Microsoft.Maps until defer'd JS is loaded.  Need to make this a no-op until that happens.
+                // Can AngularJS be used to inject this?
+                Microsoft.Maps.loadModule('Microsoft.Maps.AutoSuggest', function () {
+
+                    var map = that.updateAndReturnMap(47.606209, -122.332071, 12);
+
+                    var manager = new Microsoft.Maps.AutosuggestManager({ map: map });
+                    manager.attachAutosuggest(
+                        document.getElementById('searchBox'),
+                        document.getElementById('searchBoxContainer'),
+                        function (result) {
+
+                            that.updateAndReturnMap(result.location.latitude, result.location.longitude, 12);
+                            that.newPlace = {
+                                name: result.title,
+                                lat: result.location.latitude,
+                                long: result.location.longitude,
+                                zoom: 12
+                            }
+                        })
+                });
             },
             controllerAs: 'placeCtrl'
         });

@@ -8,9 +8,15 @@
             <a href ng-click="placeCtrl.mapPlace(place)">{{ place.name }}</a>
         </li>
     </ul>
+    
+    <div id="searchBoxContainer">
+        <input type="text" id="searchBox" />
+    </div>
 
-    <input type="text" name="state" ng-model="placeCtrl.newPlace" />
-    <a href ng-click="placeCtrl.addPlaceTo()">Add place {{ placeCtrl.newPlace }}</a>
+    <!--
+        TODO: Don't enable this unless a place has been selected in search.    
+    -->
+    <a href ng-click="placeCtrl.addPlaceTo()">Add place</a>
     <p>
         <!-- 
             There is nothing in our app.js that provides a route for this, so the view that
